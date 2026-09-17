@@ -29,7 +29,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-yy)@v+njx*$ww$h@((qz#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+# En desarrollo se acepta cualquier host (IP local del celular/emulador).
+# Restringir en producción.
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,10 +47,12 @@ INSTALLED_APPS = [
     # Third-party apps
     'rest_framework',
     'corsheaders',
+    'rest_framework_simplejwt.token_blacklist',
     
     # Local apps
     'usuarios',
     'inventario',
+    'clientes',
     'ventas',
     'cuentas_por_cobrar',
 ]
@@ -121,9 +125,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Guayaquil'
 
 USE_I18N = True
 
@@ -134,6 +138,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Email
@@ -151,7 +158,12 @@ CORS_ALLOW_ALL_ORIGINS = True
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
 }
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

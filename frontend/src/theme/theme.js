@@ -16,7 +16,7 @@ export const colors = {
   // Texto
   text: '#F4F6FB',
   textSecondary: '#8B93A7',
-  textMuted: '#5A6172',
+  textMuted: '#7E869A',
 
   // Estados
   success: '#3DD68C',
@@ -74,3 +74,8 @@ export const shadow = {
     elevation: 6,
   },
 };
+
+export const PALETA_CATEGORIAS = [
+  '#C9A227', '#8B1E3F', '#3B8C4E', '#D97706', '#2563EB',
+  '#7C3AED', '#0E9AA7', '#DB2777', '#EA580C', '#64748B',
+];
